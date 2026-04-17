@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sample-app
 spec:
-  replicas: 2
+  replicas: 3   # <-- changed from 2 to 3
   selector:
     matchLabels:
       app: sample-app
@@ -19,3 +19,24 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html
+        configMap:
+          name: sample-app-html
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-app-html
+data:
+  index.html: |
+    <html>
+      <head><title>Argo CD Demo</title></head>
+      <body>
+        <h1>Hello from Argo CD!</h1>
+        <p>This page was deployed via GitOps 🚀</p>
+      </body>
+    </html>
