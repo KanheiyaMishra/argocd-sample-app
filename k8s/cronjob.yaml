@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: sample-cronjob
-  namespace: argocd-sample-app
+  namespace: sample-app-argocd
 spec:
   schedule: "*/1 * * * *"   # every minute
   jobTemplate:
